@@ -20,7 +20,7 @@ Each `omdb.py` method supports the same parameters as the `OMDb API`.
 | `year` | `y` | year **(optional)** | year of media |
 | `fullplot=True` | `plot=full` | `full` | include extended plot |
 | `fullplot=False` | `plot=short` | `short` | include short plot **(default)** |
-| `tomatoes=True` | `tomatoes=true` | `true` **(optional)** | adds Rotten Tomatoes data to response |
+| `tomatoes=True` | `tomatoes=true` | `true` **(optional)** | add Rotten Tomatoes data to response |
 
 **NOTE:** By default all `OMDb API` responses are formatted as `JSON`. However, `OMDb API` also supports responses formatted as `XML`. Since `omdb.py` will handle `JSON` to `dict` conversion automatically, it's generally not necessary (nor is it supported by the main `ombd.py` methods) to return `XML` formatted responses. But this can be accomplished by directly using `omdb.Client`:
 
