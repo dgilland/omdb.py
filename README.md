@@ -283,6 +283,7 @@ This software is licensed under the BSD License.
 
 ## TODO
 
+- More tests (besides just doctests) in `tests/`.
 - Implement data structures to better represent returned data (instead of direct API data pass-through)
 - Handle `Error` cases in responses (e.g. return an empty list when no search results found instead of `{"Response":"False","Error":"Movie not found!"}`)
 
