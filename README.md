@@ -6,6 +6,18 @@ Version: `0.0.1`
 
 **NOTE:** This library and its author are not endorsed by or affiliated with [OMDbAPI.com](http://omdbapi.com/).
 
+## Installation
+
+Using `pip`:
+
+```bash
+pip install omdb
+```
+
+### Dependencies
+
+- `requests>=2.0.1`
+
 ## API
 
 Each `omdb.py` method supports the same parameters as the `OMDb API`.
