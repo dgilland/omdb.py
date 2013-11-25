@@ -22,6 +22,8 @@ class Client(object):
     def __init__(self, default_params=None):
         self.default_params = default_params.copy() if isinstance(default_params, dict) else {}
 
+        self.s = requests.Session()
+
     def set_default(self, key, default):
         '''
         Set default request params
@@ -43,7 +45,7 @@ class Client(object):
 
         Raises exception for non-200 HTTP status codes
         '''
-        res = requests.get(self.url, params=params)
+        res = self.s.get(self.url, params=params)
 
         # raise HTTP status code exception if status code != 200
         # if status_code == 200, then no exception raised
