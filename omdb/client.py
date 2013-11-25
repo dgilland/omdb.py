@@ -1,27 +1,49 @@
 
 import requests
 
+import models
+
 class Client(object):
     '''HTTP request client for OMDB API'''
 
     url = 'http://www.omdbapi.com'
 
-    @classmethod
-    def request(cls, **params):
+    default_params = {}
+
+    params_map = {
+        's':        'search',
+        't':        'title',
+        'i':        'imdbid',
+        'y':        'year',
+        'plot':     'plot',
+        'tomatoes': 'tomatoes'
+    }
+
+    def __init__(self, default_params=None):
+        self.default_params = default_params.copy() if isinstance(default_params, dict) else {}
+
+    def set_default(self, key, default):
+        '''
+        Set default request params
+        '''
+        self.default_params[key] = default
+
+    def convert_params(self, params):
+        _params = {}
+
+        for api_arg, arg in self.params_map.iteritems():
+            if arg in params:
+                _params[api_arg] = params[arg]
+
+        return _params
+
+    def request(self, **params):
         '''
         HTTP GET request to OMDB API
 
         Raises exception for non-200 HTTP status codes
-
-        >>> req = dict(t='True Grit', y='1969')
-        >>> res = Client.request(**req)
-        >>> assert res.ok
-
-        >>> data = res.json()
-        >>> assert data['Title'] == req['t']
-        >>> assert data['Year'] == req['y']
         '''
-        res = requests.get(cls.url, params=params)
+        res = requests.get(self.url, params=params)
 
         # raise HTTP status code exception if status code != 200
         # if status_code == 200, then no exception raised
@@ -29,30 +51,29 @@ class Client(object):
 
         return res
 
-    @classmethod
-    def get(cls, search=None, title=None, imdbid=None, year=None, fullplot=None, tomatoes=None, **ignore):
+    def get(self, search=None, title=None, imdbid=None, year=None, fullplot=None, tomatoes=None, **ignore):
         '''
         Generic request returned as dict
-
-        >>> req = dict(title='True Grit', year='1969', fullplot=True, tomatoes=True)
-        >>> data = Client.get(**req)
-        >>> assert data['Title'] == req['title']
-        >>> assert data['Year'] == req['year']
-        >>> assert 'tomatoMeter' in data
         '''
 
-        # convert function args to API query params
         params = dict(
-            s = search,
-            t = title,
-            i = imdbid,
-            y = year,
+            search = search,
+            title = title,
+            imdbid = imdbid,
+            year = year,
             plot = 'full' if fullplot else 'short',
             tomatoes = 'true' if tomatoes else False
         )
 
         # remove falsey params
         params = dict([(k,v) for k,v in params.iteritems() if v])
+
+        # set defaults
+        for k, v in self.default_params.iteritems():
+            params.setdefault(k, v)
+
+        # convert function args to API query params
+        params = self.convert_params(params)
 
         data = self.request(**params).json()
 

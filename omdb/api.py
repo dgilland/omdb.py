@@ -8,9 +8,18 @@ Accessible via:
 
 from .client import Client
 
+# internal client instance used for our requests
+_client = Client()
+
+def set_default(key, default):
+    '''
+    Proxy method to internal client instance that sets default params values
+    '''
+    _client.set_default(key, default)
+
 def get(**params):
     '''Generic request'''
-    return Client.get(**params)
+    return _client.get(**params)
 
 def search(search, **params):
     '''
