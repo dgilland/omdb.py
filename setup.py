@@ -5,7 +5,6 @@ import os
 with open('VERSION', 'r') as f:
     version = f.read()
 
-# load README as long description
 with open('README', 'r') as f:
     long_description = f.read()
 
