@@ -54,5 +54,16 @@ class Client(object):
         # remove falsey params
         params = dict([(k,v) for k,v in params.iteritems() if v])
 
-        return cls.request(**params).json()
+        data = self.request(**params).json()
+
+        return self.set_model(data, params)
+
+    def set_model(self, data, params):
+        if 's' in params:
+            # omdbapi returns search results even if imdbid supplied
+            data = models.Search(data)
+        else:
+            data = models.Item(data)
+
+        return data
 
