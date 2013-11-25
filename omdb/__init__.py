@@ -1,11 +1,13 @@
 
 from .api import (
+    set_default,
     search,
     get,
     title,
+    imdbid,
     Client
 )
 
 __version__ = '0.0.1'
 __author__ = 'Derrick Gilland <dgilland@gmail.com>'
-__all__ = ['search', 'get', 'title', 'request', 'Client']
+__all__ = ['set_default', 'search', 'get', 'title', 'imdbid', 'Client']
