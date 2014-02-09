@@ -3,6 +3,7 @@ from unittest import TestCase
 
 import omdb
 
+
 class TestClient(TestCase):
 
     def setUp(self):
@@ -56,4 +57,3 @@ class TestClient(TestCase):
         data = self.client.get(**req)
 
         self.assertEqual(data['year'], '2010')
-

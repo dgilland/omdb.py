@@ -3,6 +3,7 @@ import six
 
 from omdb import models
 
+
 class Client(object):
     '''HTTP request client for OMDB API'''
 
@@ -59,16 +60,16 @@ class Client(object):
         '''
 
         params = dict(
-            search = search,
-            title = title,
-            imdbid = imdbid,
-            year = year,
-            plot = 'full' if fullplot else 'short',
-            tomatoes = 'true' if tomatoes else False
+            search=search,
+            title=title,
+            imdbid=imdbid,
+            year=year,
+            plot='full' if fullplot else 'short',
+            tomatoes='true' if tomatoes else False
         )
 
         # remove falsey params
-        params = dict([(k,v) for k, v in six.iteritems(params) if v])
+        params = dict([(k, v) for k, v in six.iteritems(params) if v])
 
         # set defaults
         for k, v in six.iteritems(self.default_params):
@@ -89,4 +90,3 @@ class Client(object):
             data = models.Item(data)
 
         return data
-
