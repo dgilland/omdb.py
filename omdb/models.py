@@ -13,14 +13,14 @@ class Storage(dict):
     >>> assert o.b == o['b']
 
     >>> o.a = 2
-    >>> print o['a']
+    >>> print(o['a'])
     2
 
     >>> x = o.copy()
     >>> assert(x == o)
 
     >>> del o.a
-    >>> print o.a
+    >>> print(o.a)
     Traceback (most recent call last):
     ...
     AttributeError: a
@@ -30,7 +30,7 @@ class Storage(dict):
     ...
     AttributeError: a
 
-    >>> print o['a']
+    >>> print(o['a'])
     Traceback (most recent call last):
     ...
     KeyError: 'a'
