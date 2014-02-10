@@ -19,7 +19,7 @@ setup(
     url='https://github.com/dgilland/omdb.py',
     packages=['omdb'],
     install_requires=['requests>=2.0.1', 'six'],
-    test_suite = 'tests',
+    test_suite='tests',
     keywords='omdb imdb movies',
     license='BSD',
     classifiers=[
