@@ -2,7 +2,7 @@
 
 Python wrapper around `The Open Movie Database API` (a.k.a. `OMDb API`): http://omdbapi.com/
 
-Version: `0.1.0`
+Version: `0.1.1`
 
 **NOTE:** This library and its author are not endorsed by or affiliated with [OMDbAPI.com](http://omdbapi.com/).
 
