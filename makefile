@@ -1,4 +1,4 @@
-.PHONY: build build27 build33 test test27 test33 clean release
+.PHONY: build build27 build33 test test27 test33 testall clean release
 
 build:
 	rm -rf env
@@ -24,14 +24,14 @@ test27:
 test33:
 	. env33/bin/activate; py.test omdb tests
 
-testfull: test27 test33
+testall: test27 test33
 
 clean:
 	rm -rf env
 	rm -rf env27
 	rm -rf env33
-	rm -f omdb/*.pyc tests/*.pyc
-	rm -r dist *.egg*
+	rm -f *.pyc omdb/*.pyc tests/*.pyc
+	rm -rf dist *.egg*
 
 release:
 	python setup.py sdist upload
