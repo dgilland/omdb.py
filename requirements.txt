@@ -3,4 +3,5 @@ coverage==3.7
 pytest==2.4.2
 pytest-cov==1.6
 requests>=2.0.1
-wheel
+six>=1.5.2
+wheel>=0.22.0
