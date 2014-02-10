@@ -11,7 +11,7 @@ from setuptools import setup
 
 setup(
     name='omdb',
-    version='0.1.0',
+    version='0.1.1',
     description='Python wrapper for OMDb API: http://www.omdbapi.com/',
     long_description=__doc__,
     author='Derrick Gilland',
