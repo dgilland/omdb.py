@@ -13,9 +13,8 @@ testall:
 
 clean:
 	rm -rf env
-	rm -rf env27
-	rm -rf env33
 	rm -f *.pyc omdb/*.pyc tests/*.pyc
+	rm -rf omdb/__pycache__ tests/__pycache__
 	rm -rf dist *.egg*
 
 release:
