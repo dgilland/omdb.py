@@ -26,6 +26,8 @@ pip-log.txt
 
 # virtualenv
 /env
+/env27
+/env33
 
 # tox files
 .tox
