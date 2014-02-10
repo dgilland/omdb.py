@@ -1,22 +1,25 @@
+"""
+omdb
+----
+
+Python wrapper for OMDbAPI.com.
+
+Documentation: https://github.com/dgilland/omdb.py
+"""
 
 from setuptools import setup
 
-with open('VERSION', 'r') as f:
-    version = f.read()
-
-with open('README', 'r') as f:
-    long_description = f.read()
-
 setup(
     name='omdb',
-    version=version,
+    version='0.1.0',
     description='Python wrapper for OMDb API: http://www.omdbapi.com/',
-    long_description=long_description,
+    long_description=__doc__,
     author='Derrick Gilland',
     author_email='dgilland@gmail.com',
     url='https://github.com/dgilland/omdb.py',
     packages=['omdb'],
     install_requires=['requests>=2.0.1', 'six'],
+    test_suite = 'tests',
     keywords='omdb imdb movies',
     license='BSD',
     classifiers=[
