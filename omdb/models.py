@@ -1,5 +1,5 @@
-
 import re
+
 
 class Storage(dict):
     '''
@@ -13,14 +13,14 @@ class Storage(dict):
     >>> assert o.b == o['b']
 
     >>> o.a = 2
-    >>> print o['a']
+    >>> print(o['a'])
     2
 
     >>> x = o.copy()
     >>> assert(x == o)
 
     >>> del o.a
-    >>> print o.a
+    >>> print(o.a)
     Traceback (most recent call last):
     ...
     AttributeError: a
@@ -30,7 +30,7 @@ class Storage(dict):
     ...
     AttributeError: a
 
-    >>> print o['a']
+    >>> print(o['a'])
     Traceback (most recent call last):
     ...
     KeyError: 'a'
@@ -52,7 +52,8 @@ class Storage(dict):
             raise AttributeError(key)
 
     def __repr__(self):
-        return '%s(%s)' % (self.__class__.__name__, dict.__repr__(self)) # pragma: no cover
+        return '%s(%s)' % (self.__class__.__name__, dict.__repr__(self))  # pragma: no cover
+
 
 class Item(Storage):
     '''
@@ -96,7 +97,7 @@ class Item(Storage):
         if 'Error' not in data:
             for field in self._fields:
                 if field in data:
-                    self[ self.convert_field_name(field) ] = data[field]
+                    self[self.convert_field_name(field)] = data[field]
 
     def convert_field_name(self, name):
         '''
@@ -111,6 +112,7 @@ class Item(Storage):
         s1 = first_cap_re.sub(r'\1_\2', name)
         return all_cap_re.sub(r'\1_\2', s1).lower()
 
+
 class Search(list):
     '''
     Data model for an OMDb search
@@ -124,5 +126,4 @@ class Search(list):
             self[i] = Item(item)
 
     def __repr__(self):
-        return 'Search(%s)' % (super(Search, self).__repr__()) # pragma: no cover
-
+        return 'Search(%s)' % (super(Search, self).__repr__())  # pragma: no cover

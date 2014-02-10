@@ -1,7 +1,8 @@
-
 import requests
+import six
 
-import models
+from omdb import models
+
 
 class Client(object):
     '''HTTP request client for OMDB API'''
@@ -33,7 +34,7 @@ class Client(object):
     def convert_params(self, params):
         _params = {}
 
-        for api_arg, arg in self.params_map.iteritems():
+        for api_arg, arg in six.iteritems(self.params_map):
             if arg in params:
                 _params[api_arg] = params[arg]
 
@@ -59,19 +60,19 @@ class Client(object):
         '''
 
         params = dict(
-            search = search,
-            title = title,
-            imdbid = imdbid,
-            year = year,
-            plot = 'full' if fullplot else 'short',
-            tomatoes = 'true' if tomatoes else False
+            search=search,
+            title=title,
+            imdbid=imdbid,
+            year=year,
+            plot='full' if fullplot else 'short',
+            tomatoes='true' if tomatoes else False
         )
 
         # remove falsey params
-        params = dict([(k,v) for k,v in params.iteritems() if v])
+        params = dict([(k, v) for k, v in six.iteritems(params) if v])
 
         # set defaults
-        for k, v in self.default_params.iteritems():
+        for k, v in six.iteritems(self.default_params):
             params.setdefault(k, v)
 
         # convert function args to API query params
@@ -89,4 +90,3 @@ class Client(object):
             data = models.Item(data)
 
         return data
-
