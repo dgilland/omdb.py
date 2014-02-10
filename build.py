@@ -21,4 +21,3 @@ if __name__ == '__main__':
 
     with open('README.md', 'w') as f:
         f.write(''.join(readme))
-

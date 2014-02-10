@@ -3,6 +3,7 @@ from unittest import TestCase
 
 import omdb
 
+
 class TestApi(TestCase):
 
     def test_search(self):
@@ -113,4 +114,3 @@ class TestApi(TestCase):
 
         self.assertEqual(set(omdb.title('True Grit', tomatoes=True).keys()), set(expected_fields))
         self.assertEqual(set(omdb.imdbid('tt0065126', tomatoes=True).keys()), set(expected_fields))
-
