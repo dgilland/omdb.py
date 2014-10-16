@@ -236,4 +236,4 @@ By default `requests` will not raise an `Exception` when an HTTP response's stat
 
 ## LICENSE
 
-This software is licensed under the BSD License.
+This software is licensed under the MIT License.
