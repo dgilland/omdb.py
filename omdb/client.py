@@ -21,9 +21,8 @@ class Client(object):
         'tomatoes': 'tomatoes'
     }
 
-    def __init__(self, default_params=None):
-        self.default_params = default_params.copy() if isinstance(default_params, dict) else {}
-
+    def __init__(self, **defaults):
+        self.default_params = defaults
         self.session = requests.Session()
 
     def set_default(self, key, default):

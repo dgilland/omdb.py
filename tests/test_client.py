@@ -10,7 +10,7 @@ class TestClient(TestCase):
         self.client = omdb.Client()
 
     def test_request(self):
-        req = dict(t='True Grit', y='1969')
+        req = {'t': 'True Grit', 'y': '1969'}
         res = self.client.request(**req)
 
         self.assertTrue(res.ok)
@@ -21,7 +21,10 @@ class TestClient(TestCase):
         self.assertEqual(data['Year'], req['y'])
 
     def test_get(self):
-        req = dict(title='True Grit', year='1969', fullplot=True, tomatoes=True)
+        req = {'title': 'True Grit',
+               'year': '1969',
+               'fullplot': True,
+               'tomatoes': True}
         data = self.client.get(**req)
 
         self.assertEqual(data['title'], req['title'])
@@ -30,7 +33,7 @@ class TestClient(TestCase):
 
     def test_set_default(self):
 
-        req = dict(title='True Grit')
+        req = {'title': 'True Grit'}
 
         data = self.client.get(**req)
 
@@ -46,14 +49,14 @@ class TestClient(TestCase):
         self.assertEqual(data['year'], '1969')
 
         # can also set defaults at client instantiation time
-        self.client = omdb.Client(default_params={'year': '1969'})
+        self.client = omdb.Client(year='1969')
 
         data = self.client.get(**req)
 
         self.assertEqual(data['year'], '1969')
 
         # defaults can be overridden
-        req = dict(title='True Grit', year='2010')
+        req = {'title': 'True Grit', 'year': '2010'}
         data = self.client.get(**req)
 
         self.assertEqual(data['year'], '2010')
