@@ -38,6 +38,16 @@ class TestApi(TestCase):
         self.assertEqual(omdb.get(imdbid='tt0065126').imdb_id, 'tt0065126')
         self.assertEqual(omdb.get(search='True Grit')[0].title, 'True Grit')
 
+    def test_request(self):
+        self.assertEqual(omdb.request(t='True Grit').json()['Title'],
+                         'True Grit')
+        self.assertEqual(omdb.request(i='tt0065126').json()['imdbID'],
+                         'tt0065126')
+        self.assertEqual(
+            omdb.request(s='True Grit').json()['Search'][0]['Title'],
+            'True Grit'
+        )
+
     def test_empty_data(self):
         invalid = 'asdfghjkl'
 
@@ -80,8 +90,10 @@ class TestApi(TestCase):
             'imdb_votes'
         ]
 
-        self.assertEqual(set(omdb.title('True Grit').keys()), set(expected_fields))
-        self.assertEqual(set(omdb.imdbid('tt0065126').keys()), set(expected_fields))
+        self.assertEqual(set(omdb.title('True Grit').keys()),
+                         set(expected_fields))
+        self.assertEqual(set(omdb.imdbid('tt0065126').keys()),
+                         set(expected_fields))
 
     def test_get_model_fields_tomatoes(self):
         expected_fields = [
@@ -122,5 +134,7 @@ class TestApi(TestCase):
             'tomato_user_reviews'
         ]
 
-        self.assertEqual(set(omdb.title('True Grit', tomatoes=True).keys()), set(expected_fields))
-        self.assertEqual(set(omdb.imdbid('tt0065126', tomatoes=True).keys()), set(expected_fields))
+        self.assertEqual(set(omdb.title('True Grit', tomatoes=True).keys()),
+                         set(expected_fields))
+        self.assertEqual(set(omdb.imdbid('tt0065126', tomatoes=True).keys()),
+                         set(expected_fields))
