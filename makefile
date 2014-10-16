@@ -41,16 +41,19 @@ install:
 	$(PIP) install -r requirements.txt
 
 .PHONY: test
-test:
+test: pep8 pytest
+
+.PHONY: pytest
+pytest:
 	$(ENV_ACT) py.test $(PYTEST_ARGS) $(COVERAGE_ARGS) $(COVERAGE_TARGET) $(PYTEST_TARGET)
 
 .PHONY: test-full
-test-full: lint test-tox clean-files
+test-full: pylint-errors test-setuppy clean-files
 
-.PHONY: test-tox
-test-tox:
-	rm -rf .tox
-	$(ENV_ACT) tox
+.PHONY: test-setuppy
+test-setuppy:
+	python setup.py test
+
 
 .PHONY: lint
 lint: pylint pep8
@@ -62,6 +65,10 @@ pep8:
 .PHONY: pylint
 pylint:
 	$(ENV_ACT) pylint $(COVERAGE_TARGET)
+
+.PHONY: pylint-errors
+pylint-errors:
+	$(ENV_ACT) pylint -E $(COVERAGE_TARGET)
 
 .PHONY: release
 release:
