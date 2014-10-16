@@ -39,8 +39,9 @@ Each `omdb.py` method supports the same parameters as the `OMDb API`.
 ```python
 from omdb import Client
 
+client = Client()
 # must use OMDb API parameters
-res = Client.request(t='True Grit', y=1969, r='xml')
+res = client.request(t='True Grit', y=1969, r='xml')
 xml_content = res.content
 ```
 
@@ -68,6 +69,8 @@ While generally not necessary, one can use the lower level `OMDb API Client` for
 
 ```python
 from omdb import Client
+
+client = Client()
 ```
 
 | Class Methods | Description | Returns |
@@ -207,7 +210,7 @@ omdb.set_default('tomatoes', True)
 omdb.title('True Grit') == omdb.title('True Grit', tomatoes=True)
 ```
 
-### omdb.Client.get()
+### omdb.Client().get()
 
 ```python
 omdb.Client.get()
@@ -217,11 +220,11 @@ omdb.Client.get()
 
 Same as `omdb.get()`.
 
-### omdb.Client.request()
+### omdb.Client().request()
 
 ```python
 # lower level API request
-omdb.Client.request(t='True Grit', y=1969, plot='full', tomatoes='true')
+omdb.Client().request(t='True Grit', y=1969, plot='full', tomatoes='true')
 ```
 
 **Returns:**
