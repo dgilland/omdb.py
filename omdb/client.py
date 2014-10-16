@@ -1,52 +1,51 @@
+"""OMDb API client.
+"""
+
 import requests
-import six
+from six import iteritems
 
 from omdb import models
 
 
 class Client(object):
-    '''HTTP request client for OMDB API'''
+    """HTTP request client for OMDB API."""
 
     url = 'http://www.omdbapi.com'
 
-    default_params = {}
-
     params_map = {
-        's':        'search',
-        't':        'title',
-        'i':        'imdbid',
-        'y':        'year',
-        'plot':     'plot',
+        's': 'search',
+        't': 'title',
+        'i': 'imdbid',
+        'y': 'year',
+        'plot': 'plot',
         'tomatoes': 'tomatoes'
     }
 
     def __init__(self, default_params=None):
         self.default_params = default_params.copy() if isinstance(default_params, dict) else {}
 
-        self.s = requests.Session()
+        self.session = requests.Session()
 
     def set_default(self, key, default):
-        '''
-        Set default request params
-        '''
+        """Set default request params."""
         self.default_params[key] = default
 
     def convert_params(self, params):
+        """Map OMDb params to our renaming."""
         _params = {}
 
-        for api_arg, arg in six.iteritems(self.params_map):
+        for api_arg, arg in iteritems(self.params_map):
             if arg in params:
                 _params[api_arg] = params[arg]
 
         return _params
 
     def request(self, **params):
-        '''
-        HTTP GET request to OMDB API
+        """HTTP GET request to OMDB API.
 
-        Raises exception for non-200 HTTP status codes
-        '''
-        res = self.s.get(self.url, params=params)
+        Raises exception for non-200 HTTP status codes.
+        """
+        res = self.session.get(self.url, params=params)
 
         # raise HTTP status code exception if status code != 200
         # if status_code == 200, then no exception raised
@@ -54,26 +53,30 @@ class Client(object):
 
         return res
 
-    def get(self, search=None, title=None, imdbid=None, year=None, fullplot=None, tomatoes=None, **ignore):
-        '''
-        Generic request returned as dict
-        '''
+    def get(self,
+            search=None,
+            title=None,
+            imdbid=None,
+            year=None,
+            fullplot=None,
+            tomatoes=None):
+        """Generic request returned as dict."""
 
-        params = dict(
-            search=search,
-            title=title,
-            imdbid=imdbid,
-            year=year,
-            plot='full' if fullplot else 'short',
-            tomatoes='true' if tomatoes else False
-        )
+        params = {
+            'search': search,
+            'title': title,
+            'imdbid': imdbid,
+            'year': year,
+            'plot': 'full' if fullplot else 'short',
+            'tomatoes': 'true' if tomatoes else False
+        }
 
         # remove falsey params
-        params = dict([(k, v) for k, v in six.iteritems(params) if v])
+        params = dict([(k, v) for k, v in iteritems(params) if v])
 
         # set defaults
-        for k, v in six.iteritems(self.default_params):
-            params.setdefault(k, v)
+        for key, value in iteritems(self.default_params):
+            params.setdefault(key, value)
 
         # convert function args to API query params
         params = self.convert_params(params)
@@ -82,7 +85,8 @@ class Client(object):
 
         return self.set_model(data, params)
 
-    def set_model(self, data, params):
+    def set_model(self, data, params):  # pylint: disable=no-self-use
+        """Convert data into first class models."""
         if 's' in params:
             # omdbapi returns search results even if imdbid supplied
             data = models.Search(data)

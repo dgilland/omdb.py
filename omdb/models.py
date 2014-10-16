@@ -1,9 +1,12 @@
+"""OMDb models.
+"""
+
 import re
 
 
 class Storage(dict):
-    '''
-    An object that is like a dict except `obj.foo` can be used in addition to `obj['foo']`.
+    """An object that is like a dict except `obj.foo` can be used in addition
+    to `obj['foo']`.
 
     Raises Attribute/Key errors for missing references.
 
@@ -34,7 +37,7 @@ class Storage(dict):
     Traceback (most recent call last):
     ...
     KeyError: 'a'
-    '''
+    """
 
     def __getattr__(self, key):
         if key in self:
@@ -51,14 +54,12 @@ class Storage(dict):
         else:
             raise AttributeError(key)
 
-    def __repr__(self):
-        return '%s(%s)' % (self.__class__.__name__, dict.__repr__(self))  # pragma: no cover
+    def __repr__(self):  # pragma: no cover
+        return '%s(%s)' % (self.__class__.__name__, dict.__repr__(self))
 
 
 class Item(Storage):
-    '''
-    Data model for an individual OMDb item
-    '''
+    """Data model for an individual OMDb item."""
     _fields = [
         'Actors',
         'BoxOffice',
@@ -92,38 +93,35 @@ class Item(Storage):
     ]
 
     def __init__(self, data_dict=None, **data):
+        # pylint: disable=super-init-not-called
         data = data_dict or data
 
         if 'Error' not in data:
             for field in self._fields:
                 if field in data:
-                    self[self.convert_field_name(field)] = data[field]
-
-    def convert_field_name(self, name):
-        '''
-        Convert field name from CamelCase to camel_case
-
-        >>> item = Item()
-        >>> assert item.convert_field_name('CamelCase') == 'camel_case'
-        >>> assert item.convert_field_name('imdbId') == 'imdb_id'
-        '''
-        first_cap_re = re.compile('(.)([A-Z][a-z]+)')
-        all_cap_re = re.compile('([a-z0-9])([A-Z])')
-        s1 = first_cap_re.sub(r'\1_\2', name)
-        return all_cap_re.sub(r'\1_\2', s1).lower()
+                    self[camelcase_to_underscore(field)] = data[field]
 
 
 class Search(list):
-    '''
-    Data model for an OMDb search
-    '''
+    """Data model for an OMDb search."""
     def __init__(self, results):
-        # if 'Search' not present, then no results found
-        # currently, api returns {u'Response': u'False', u'Error': u'Movie not found!'} when no results
+        # pylint: disable=super-init-not-called
+        # If 'Search' not present, then no results found. Currently, api
+        # returns {u'Response': u'False', u'Error': u'Movie not found!'} when
+        # no results.
         self.extend(results.get('Search', []))
 
         for i, item in enumerate(self):
             self[i] = Item(item)
 
-    def __repr__(self):
-        return 'Search(%s)' % (super(Search, self).__repr__())  # pragma: no cover
+    def __repr__(self):  # pragma: no cover
+        return 'Search(%s)' % (super(Search, self).__repr__())
+
+
+def camelcase_to_underscore(string):
+    """Convert string from ``CamelCase`` to ``under_score``."""
+    regex_first_cap = re.compile('(.)([A-Z][a-z]+)')
+    regex_all_cap = re.compile('([a-z0-9])([A-Z])')
+
+    first_cap = regex_first_cap.sub(r'\1_\2', string)
+    return regex_all_cap.sub(r'\1_\2', first_cap).lower()
