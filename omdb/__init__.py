@@ -7,5 +7,6 @@ from .api import (
     get,
     title,
     imdbid,
+    request,
     Client
 )

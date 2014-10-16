@@ -36,3 +36,8 @@ def imdbid(string, **params):
 def title(string, **params):
     """Get by title."""
     return get(title=string, **params)
+
+
+def request(**params):
+    """Lower-level request."""
+    return _client.request(**params)
