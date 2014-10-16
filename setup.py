@@ -52,15 +52,15 @@ setup(
     author=meta['__author__'],
     author_email=meta['__email__'],
     description=meta['__summary__'],
-    long_description=__doc__,
-    packages=['omdb'],
-    install_requires=[
-        'requests>=2.0.1',
-        'six'
-    ],
+    long_description=read('README.rst'),
+    packages=find_packages(exclude=['tests']),
+    install_requires=meta['__install_requires__'],
+    tests_require=['tox'],
+    cmdclass={'test': Tox},
     test_suite='tests',
     keywords='omdb imdb movies',
     classifiers=[
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
