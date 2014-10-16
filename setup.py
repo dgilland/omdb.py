@@ -1,34 +1,48 @@
 """
 omdb
-----
+====
 
 Python wrapper for OMDbAPI.com.
 
-Documentation: https://github.com/dgilland/omdb.py
+Project: https://github.com/dgilland/omdb.py
 """
 
+import os
 from setuptools import setup
 
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+
+meta = {}
+exec(read('omdb/__meta__.py'), meta)
+
+
 setup(
-    name='omdb',
-    version='0.1.1',
-    description='Python wrapper for OMDb API: http://www.omdbapi.com/',
+    name=meta['__title__'],
+    version=meta['__version__'],
+    url=meta['__url__'],
+    license=meta['__license__'],
+    author=meta['__author__'],
+    author_email=meta['__email__'],
+    description=meta['__summary__'],
     long_description=__doc__,
-    author='Derrick Gilland',
-    author_email='dgilland@gmail.com',
-    url='https://github.com/dgilland/omdb.py',
     packages=['omdb'],
-    install_requires=['requests>=2.0.1', 'six'],
+    install_requires=[
+        'requests>=2.0.1',
+        'six'
+    ],
     test_suite='tests',
     keywords='omdb imdb movies',
-    license='BSD',
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
