@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+v0.2.0 (2014-10-16)
+-------------------
+
+- Update ``models.Item`` with additional ``OMDb API`` fields: ``Awards``, ``Country``, ``Language``, and ``Metascore``.
+- Add ``omdb.request`` method for easier access to raw request response.
+- Initialization of ``omdb.Client`` now accepts keyword arguments for API request parameter defaults. Previously, a ``dict`` object needed to be passed in.
+- Full PEP8 compliance.
+- Integrate ``tox`` testing into ``setup.py``.
+
+
 v0.1.1 (2014-02-09)
 -------------------
 
