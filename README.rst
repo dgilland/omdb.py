@@ -14,7 +14,8 @@ Installation
 
 Using ``pip``:
 
-.. code-block::
+
+::
 
 	pip install omdb
 
@@ -22,13 +23,14 @@ Using ``pip``:
 Dependencies
 ============
 
-- ``requests>=2.0.1``
+- requests >= 2.0.1
 
 
 API
 ===
 
 Each ``omdb.py`` method supports the same parameters as the ``OMDb API``.
+
 
 Paramters
 ---------
@@ -88,7 +90,7 @@ While generally not necessary, one can use the lower level ``OMDb API Client`` f
 
 .. code-block:: python
 
-	from omdb import Client
+    from omdb import Client
 
     client = Client()
 
@@ -295,7 +297,7 @@ A ``requests.Response`` object.
 Errors and Exceptions
 =====================
 
-Under the hood, ``omdb.py`` uses the `requests <http://www.python-requests.org/>`_ library. For a listing of explicit exceptions raised by ``requests``, see `Errors and Exceptions <http://www.python-requests.org/en/latest/user/quickstart/#errors-and-exceptions>`_.
+Under the hood, ``omdb.py`` uses the `requests <http://www.python-requests.org/>`_ library. For a listing of explicit exceptions raised by ``requests``, see `Requests: Errors and Exceptions <http://www.python-requests.org/en/latest/user/quickstart/#errors-and-exceptions>`_.
 
 By default ``requests`` will not raise an ``Exception`` when an HTTP response's status code is not ``200``. However, ``omdb.py`` *WILL* raise an ``requests.exceptions.HTTPError`` error for any response with a non-200 status code.
 
