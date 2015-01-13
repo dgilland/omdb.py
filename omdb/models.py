@@ -125,8 +125,5 @@ class Search(list):
 
 def camelcase_to_underscore(string):
     """Convert string from ``CamelCase`` to ``under_score``."""
-    regex_first_cap = re.compile('(.)([A-Z][a-z]+)')
-    regex_all_cap = re.compile('([a-z0-9])([A-Z])')
-
-    first_cap = regex_first_cap.sub(r'\1_\2', string)
-    return regex_all_cap.sub(r'\1_\2', first_cap).lower()
+    return (re.sub('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))', r'_\1', string)
+            .lower())
