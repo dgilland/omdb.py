@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+v0.3.0 (xxxx-xx-xx)
+-------------------
+
+- Add ``search_movie``.
+- Add ``search_episode``.
+- Add ``search_series``.
+- Add support for ``type`` OMDb parameter via ``media_type`` argument to every main API function.
+
+
 v0.2.0 (2014-10-16)
 -------------------
 

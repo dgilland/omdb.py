@@ -24,8 +24,26 @@ def get(**params):
 
 
 def search(string, **params):
-    """Search by string.   """
+    """Search by string."""
     return get(search=string, **params)
+
+
+def search_movie(string, **params):
+    """Search movies by string."""
+    params['media_type'] = 'movie'
+    return search(string, **params)
+
+
+def search_episode(string, **params):
+    """Search espisodes by string."""
+    params['media_type'] = 'episode'
+    return search(string, **params)
+
+
+def search_series(string, **params):
+    """Search series by string."""
+    params['media_type'] = 'series'
+    return search(string, **params)
 
 
 def imdbid(string, **params):

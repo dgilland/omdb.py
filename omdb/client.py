@@ -18,6 +18,7 @@ class Client(object):
         'i': 'imdbid',
         'y': 'year',
         'plot': 'plot',
+        'type': 'type',
         'tomatoes': 'tomatoes'
     }
 
@@ -58,7 +59,8 @@ class Client(object):
             imdbid=None,
             year=None,
             fullplot=None,
-            tomatoes=None):
+            tomatoes=None,
+            media_type=None):
         """Generic request returned as dict."""
 
         params = {
@@ -66,6 +68,7 @@ class Client(object):
             'title': title,
             'imdbid': imdbid,
             'year': year,
+            'type': media_type,
             'plot': 'full' if fullplot else 'short',
             'tomatoes': 'true' if tomatoes else False
         }

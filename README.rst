@@ -35,17 +35,18 @@ Each ``omdb.py`` method supports the same parameters as the ``OMDb API``.
 Paramters
 ---------
 
-=================  ==================  =======================  ====================================
+=================  ==================  =======================  ===================================================================
 OMDb API Param     omdb.py Param       Value                    Description
-=================  ==================  =======================  ====================================
+=================  ==================  =======================  ===================================================================
 ``s``              ``search``          string **(optional)**    title of media to search for
 ``i``              ``imdbid``          string **(optional)**    a valid IMDb ID
 ``t``              ``title``           string **(optional)**    title of media to return
 ``y``              ``year``            year **(optional)**      year of media
+``type``           ``media_type``      string **(optional)**    media type to return (one of ``movie``, ``episode``, or ``series``)
 ``plot=full``      ``fullplot=True``   ``full``                 include extended plot
 ``plot=short``     ``fullplot=False``  ``short``                include short plot **(default)**
 ``tomatoes=true``  ``tomatoes=True``   ``true`` **(optional)**  add Rotten Tomatoes data to response
-=================  ==================  =======================  ====================================
+=================  ==================  =======================  ===================================================================
 
 **NOTE:** By default all ``OMDb API`` responses are formatted as ``JSON``. However, ``OMDb API`` also supports responses formatted as ``XML``. Since ``omdb.py`` will handle ``JSON`` to ``dict`` conversion automatically, it's generally not necessary (nor is it supported by the main ``ombd.py`` methods) to return ``XML`` formatted responses. But this can be accomplished by directly using ``omdb.request``:
 
@@ -71,15 +72,18 @@ All methods are accessible via:
 
 	# omdb.<method>
 
-=============================  =======================================================================================  ==========
-Method                         Description                                                                              Returns
-=============================  =======================================================================================  ==========
-``get(**params)``              Generic request to OMDb API (requires keyword argument passing of all parameters).       ``Item``
-``search(search, **params)``   Search by string.                                                                        ``Search``
-``imdbid(imdbid, **params)``   Get by IMDB ID                                                                           ``Item``
-``title(title, **params)``     Get by title                                                                             ``Item``
-``set_default(key, default)``  Set default request parameter                                                            ``None``
-=============================  =======================================================================================  ==========
+=====================================  =======================================================================================  ==========
+Method                                 Description                                                                              Returns
+=====================================  =======================================================================================  ==========
+``get(**params)``                      Generic request to OMDb API (requires keyword argument passing of all parameters).       ``Item``
+``search(search, **params)``           Search by string.                                                                        ``Search``
+``search_movie(search, **params)``     Search movies by string.                                                                 ``Search``
+``search_espisode(search, **params)``  Search episodes by string.                                                               ``Search``
+``search_series(search, **params)``    Search series by string.                                                                 ``Search``
+``imdbid(imdbid, **params)``           Get by IMDB ID                                                                           ``Item``
+``title(title, **params)``             Get by title                                                                             ``Item``
+``set_default(key, default)``          Set default request parameter                                                            ``None``
+=====================================  =======================================================================================  ==========
 
 
 Client
@@ -246,6 +250,36 @@ omdb.search()
 
 	# search by string
 	omdb.search('True Grit')
+
+
+omdb.search_movie()
+-------------------
+
+
+.. code-block:: python
+
+	# search movies by string
+	omdb.search_movie('True Grit')
+
+
+omdb.search_episode()
+---------------------
+
+
+.. code-block:: python
+
+	# search episodes by string
+	omdb.search_episode('True Grit')
+
+
+omdb.search_series()
+--------------------
+
+
+.. code-block:: python
+
+	# search series by string
+	omdb.search_series('True Grit')
 
 
 omdb.imdbid()

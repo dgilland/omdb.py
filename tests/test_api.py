@@ -24,6 +24,30 @@ class TestApi(TestCase):
 
         self.assertEqual(data.title, t)
 
+    def test_search_movie(self):
+        t = 'True Grit'
+        media_type = 'movie'
+
+        self.assertEqual(omdb.search_movie(t)[0].type, media_type)
+        self.assertEqual(omdb.get(title=t, media_type=media_type).type,
+                         media_type)
+
+    def test_search_series(self):
+        t = 'True Grit'
+        media_type = 'series'
+
+        self.assertEqual(omdb.search_series(t)[0].type, media_type)
+        self.assertEqual(omdb.get(title=t, media_type=media_type).type,
+                         media_type)
+
+    def test_search_episode(self):
+        t = 'True Grit'
+        media_type = 'episode'
+
+        self.assertEqual(omdb.search_episode(t)[0].type, media_type)
+        self.assertEqual(omdb.get(title=t, media_type=media_type).type,
+                         media_type)
+
     def test_set_default(self):
         t = 'True Grit'
 
