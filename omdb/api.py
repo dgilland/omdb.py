@@ -35,7 +35,7 @@ def search_movie(string, **params):
 
 
 def search_episode(string, **params):
-    """Search espisodes by string."""
+    """Search episodes by string."""
     params['media_type'] = 'episode'
     return search(string, **params)
 

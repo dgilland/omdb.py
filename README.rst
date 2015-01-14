@@ -78,7 +78,7 @@ Method                                 Description                              
 ``get(**params)``                      Generic request to OMDb API (requires keyword argument passing of all parameters).       ``Item``
 ``search(search, **params)``           Search by string.                                                                        ``Search``
 ``search_movie(search, **params)``     Search movies by string.                                                                 ``Search``
-``search_espisode(search, **params)``  Search episodes by string.                                                               ``Search``
+``search_episode(search, **params)``   Search episodes by string.                                                               ``Search``
 ``search_series(search, **params)``    Search series by string.                                                                 ``Search``
 ``imdbid(imdbid, **params)``           Get by IMDB ID                                                                           ``Item``
 ``title(title, **params)``             Get by title                                                                             ``Item``
