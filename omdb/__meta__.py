@@ -5,7 +5,7 @@ __title__ = 'omdb'
 __summary__ = 'Python wrapper for OMDb API: http://www.omdbapi.com/'
 __url__ = 'https://github.com/dgilland/omdb.py'
 
-__version__ = '0.3.0-dev'
+__version__ = '0.3.0'
 
 __install_requires__ = [
     'requests>=2.0.1',

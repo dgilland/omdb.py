@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-v0.3.0 (xxxx-xx-xx)
+v0.3.0 (2015-01-13)
 -------------------
 
 - Add ``search_movie``.
