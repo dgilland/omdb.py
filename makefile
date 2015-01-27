@@ -76,6 +76,17 @@ release:
 	$(ENV_ACT) twine upload dist/*
 	rm -rf dist *.egg* build
 
+
+.PHONY: docs
+docs:
+	rm -r docs/_build
+	$(ENV_ACT) cd docs; make doctest
+	$(ENV_ACT) cd docs; make html
+
+.PHONY: serve-docs
+serve-docs:
+	cd docs/_build/html; python2 -m SimpleHTTPServer 8000
+
 ##
 # TravisCI
 ##

@@ -336,12 +336,6 @@ Under the hood, ``omdb.py`` uses the `requests <http://www.python-requests.org/>
 By default ``requests`` will not raise an ``Exception`` when an HTTP response's status code is not ``200``. However, ``omdb.py`` *WILL* raise an ``requests.exceptions.HTTPError`` error for any response with a non-200 status code.
 
 
-LICENSE
-=======
-
-This software is licensed under the MIT License.
-
-
 .. |version| image:: http://img.shields.io/pypi/v/omdb.svg?style=flat
     :target: https://pypi.python.org/pypi/omdb.py/
 

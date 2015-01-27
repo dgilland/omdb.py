@@ -31,3 +31,6 @@ pip-log.txt
 
 # tox files
 .tox
+
+# Sphinx documentation
+docs/_build/
