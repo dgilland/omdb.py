@@ -337,7 +337,7 @@ By default ``requests`` will not raise an ``Exception`` when an HTTP response's 
 
 
 .. |version| image:: http://img.shields.io/pypi/v/omdb.svg?style=flat
-    :target: https://pypi.python.org/pypi/omdb.py/
+    :target: https://pypi.python.org/pypi/omdb
 
 .. |travis| image:: http://img.shields.io/travis/dgilland/omdb.py/master.svg?style=flat
     :target: https://travis-ci.org/dgilland/omdb.py
@@ -346,4 +346,4 @@ By default ``requests`` will not raise an ``Exception`` when an HTTP response's 
     :target: https://coveralls.io/r/dgilland/omdb.py
 
 .. |license| image:: http://img.shields.io/pypi/l/omdb.svg?style=flat
-    :target: https://pypi.python.org/pypi/omdb.py/
+    :target: https://pypi.python.org/pypi/omdb
