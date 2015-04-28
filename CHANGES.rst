@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+v0.4.0 (2015-04-29)
+-------------------
+
 - Add ``Season``, ``Episode``, and ``SeriesID`` OMDb API fields as ``season``, ``episode``, and ``series_id`` model fields.
 
 
