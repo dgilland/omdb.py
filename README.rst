@@ -151,9 +151,9 @@ OMDb API Field  omdb.py Field
 Get Item Fields (tomatoes=False)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-==============  =============
+==============  ===============
 OMDb API Field  omdb.py Field
-==============  =============
+==============  ===============
 ``Title``       ``title``
 ``Year``        ``year``
 ``Type``        ``type``
@@ -162,6 +162,9 @@ OMDb API Field  omdb.py Field
 ``Country``     ``country``
 ``Director``    ``director``
 ``Genre``       ``genre``
+``Episode``     ``episode``
+``Season``      ``season``
+``SeriesID``    ``series_id``
 ``Language``    ``language``
 ``Metascore``   ``metascore``
 ``Plot``        ``plot``
@@ -174,7 +177,7 @@ OMDb API Field  omdb.py Field
 ``imdbID``      ``imdb_id``
 ``imdbRating``  ``imdb_rating``
 ``imdbVotes``   ``imdb_votes``
-==============  =============
+==============  ===============
 
 
 Get Item Fields (tomatoes=True)
@@ -191,6 +194,9 @@ OMDb API Field         omdb.py Field
 ``Country``            ``country``
 ``Director``           ``director``
 ``Genre``              ``genre``
+``Episode``            ``episode``
+``Season``             ``season``
+``SeriesID``           ``series_id``
 ``Language``           ``language``
 ``Metascore``          ``metascore``
 ``Plot``               ``plot``

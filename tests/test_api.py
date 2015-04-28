@@ -94,8 +94,8 @@ class TestApi(TestCase):
         expected_fields = [
             'actors',
             'awards',
-            'director',
             'country',
+            'director',
             'genre',
             'language',
             'metascore',
@@ -119,12 +119,42 @@ class TestApi(TestCase):
         self.assertEqual(set(omdb.imdbid('tt0065126').keys()),
                          set(expected_fields))
 
+    def test_get_model_fields_series(self):
+        expected_fields = [
+            'actors',
+            'awards',
+            'country',
+            'director',
+            'episode',
+            'genre',
+            'language',
+            'metascore',
+            'plot',
+            'poster',
+            'season',
+            'series_id',
+            'rated',
+            'released',
+            'response',
+            'runtime',
+            'title',
+            'type',
+            'writer',
+            'year',
+            'imdb_id',
+            'imdb_rating',
+            'imdb_votes'
+        ]
+
+        self.assertEqual(set(omdb.imdbid('tt2400770').keys()),
+                         set(expected_fields))
+
     def test_get_model_fields_tomatoes(self):
         expected_fields = [
             'actors',
             'awards',
-            'director',
             'country',
+            'director',
             'genre',
             'language',
             'metascore',
