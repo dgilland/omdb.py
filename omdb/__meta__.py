@@ -9,7 +9,6 @@ __version__ = '0.3.1'
 
 __install_requires__ = [
     'requests>=2.0.1',
-    'six'
 ]
 
 __author__ = 'Derrick Gilland'

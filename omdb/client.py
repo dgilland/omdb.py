@@ -2,9 +2,9 @@
 """
 
 import requests
-from six import iteritems
 
-from omdb import models
+from . import models
+from ._compat import iteritems
 
 
 class Client(object):
