@@ -42,6 +42,8 @@ OMDb API Param     omdb.py Param       Value                    Description
 ``i``              ``imdbid``          string **(optional)**    a valid IMDb ID
 ``t``              ``title``           string **(optional)**    title of media to return
 ``y``              ``year``            year **(optional)**      year of media
+``Season``         ``season``          season **(optional)**    season number
+``Episode``        ``episode``         episode **(optional)**   episode number
 ``type``           ``media_type``      string **(optional)**    media type to return (one of ``movie``, ``episode``, or ``series``)
 ``plot=full``      ``fullplot=True``   ``full``                 include extended plot
 ``plot=short``     ``fullplot=False``  ``short``                include short plot **(default)**
