@@ -17,6 +17,8 @@ class Client(object):
         't': 'title',
         'i': 'imdbid',
         'y': 'year',
+        'Season': 'season',
+        'Episode': 'episode',
         'plot': 'plot',
         'type': 'type',
         'tomatoes': 'tomatoes'
@@ -60,7 +62,9 @@ class Client(object):
             year=None,
             fullplot=None,
             tomatoes=None,
-            media_type=None):
+            media_type=None,
+            season=None,
+            episode=None):
         """Generic request returned as dict."""
 
         params = {
@@ -70,7 +74,9 @@ class Client(object):
             'year': year,
             'type': media_type,
             'plot': 'full' if fullplot else 'short',
-            'tomatoes': 'true' if tomatoes else False
+            'tomatoes': 'true' if tomatoes else False,
+            'season': season,
+            'episode': episode
         }
 
         # remove falsey params
