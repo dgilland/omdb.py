@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+- Add support for ``Season``/``Episode`` OMDb parameter via ``season``/``episode`` arguments to every main API function. Thanks cihansahin_!
+
+
 v0.4.0 (2015-04-29)
 -------------------
 
@@ -65,3 +68,4 @@ v0.0.1 (2013-11-12)
 
 
 .. _agronholm: https://github.com/agronholm
+.. _cihansahin: https://github.com/cihansahin
