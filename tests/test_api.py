@@ -69,6 +69,11 @@ class TestApi(TestCase):
         self.assertEqual(omdb.get(imdbid='tt0065126').imdb_id, 'tt0065126')
         self.assertEqual(omdb.get(search='True Grit')[0].title, 'True Grit')
 
+    def test_get_season_episode(self):
+        self.assertEqual(
+            omdb.get(title='Game of Thrones', season=1, episode=1).title,
+            'Winter Is Coming')
+
     def test_request(self):
         self.assertEqual(omdb.request(t='True Grit').json()['Title'],
                          'True Grit')
