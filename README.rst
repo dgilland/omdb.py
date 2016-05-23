@@ -361,14 +361,14 @@ Under the hood, ``omdb.py`` uses the `requests <http://www.python-requests.org/>
 By default ``requests`` will not raise an ``Exception`` when an HTTP response's status code is not ``200``. However, ``omdb.py`` *WILL* raise an ``requests.exceptions.HTTPError`` error for any response with a non-200 status code.
 
 
-.. |version| image:: http://img.shields.io/pypi/v/omdb.svg?style=flat
+.. |version| image:: http://img.shields.io/pypi/v/omdb.svg?style=flat-square
     :target: https://pypi.python.org/pypi/omdb
 
-.. |travis| image:: http://img.shields.io/travis/dgilland/omdb.py/master.svg?style=flat
+.. |travis| image:: http://img.shields.io/travis/dgilland/omdb.py/master.svg?style=flat-square
     :target: https://travis-ci.org/dgilland/omdb.py
 
-.. |coveralls| image:: http://img.shields.io/coveralls/dgilland/omdb.py/master.svg?style=flat
+.. |coveralls| image:: http://img.shields.io/coveralls/dgilland/omdb.py/master.svg?style=flat-square
     :target: https://coveralls.io/r/dgilland/omdb.py
 
-.. |license| image:: http://img.shields.io/pypi/l/omdb.svg?style=flat
+.. |license| image:: http://img.shields.io/pypi/l/omdb.svg?style=flat-square
     :target: https://pypi.python.org/pypi/omdb
