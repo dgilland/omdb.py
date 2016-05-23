@@ -4,7 +4,7 @@
 import requests
 
 from . import models
-from ._compat import iteritems
+from ._compat import iteritems, number_types
 
 
 class Client(object):
@@ -34,20 +34,25 @@ class Client(object):
 
     def convert_params(self, params):
         """Map OMDb params to our renaming."""
-        _params = {}
+        new_params = params.copy()
 
         for api_arg, arg in iteritems(self.params_map):
             if arg in params:
-                _params[api_arg] = params[arg]
+                new_params[api_arg] = new_params.pop(arg)
 
-        return _params
+        return new_params
 
     def request(self, **params):
         """HTTP GET request to OMDB API.
 
         Raises exception for non-200 HTTP status codes.
         """
-        res = self.session.get(self.url, params=params)
+        if 'timeout' in params:
+            timeout = params.pop('timeout')
+        else:
+            timeout = self.default_params.get('timeout')
+
+        res = self.session.get(self.url, params=params, timeout=timeout)
 
         # raise HTTP status code exception if status code != 200
         # if status_code == 200, then no exception raised
@@ -64,7 +69,8 @@ class Client(object):
             tomatoes=None,
             media_type=None,
             season=None,
-            episode=None):
+            episode=None,
+            timeout=None):
         """Generic request returned as dict."""
 
         params = {
@@ -76,15 +82,18 @@ class Client(object):
             'plot': 'full' if fullplot else 'short',
             'tomatoes': 'true' if tomatoes else False,
             'season': season,
-            'episode': episode
+            'episode': episode,
+            'timeout': timeout
         }
 
         # remove falsey params
-        params = dict([(k, v) for k, v in iteritems(params) if v])
+        params = dict([(key, value) for key, value in iteritems(params)
+                       if value or isinstance(value, number_types)])
 
         # set defaults
-        for key, value in iteritems(self.default_params):
-            params.setdefault(key, value)
+        for key in self.params_map.values():
+            if key in self.default_params:
+                params.setdefault(key, self.default_params[key])
 
         # convert function args to API query params
         params = self.convert_params(params)

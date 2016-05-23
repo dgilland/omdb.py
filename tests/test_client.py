@@ -1,6 +1,9 @@
 
 from unittest import TestCase
 
+import pytest
+from requests.exceptions import ConnectTimeout
+
 import omdb
 
 
@@ -32,7 +35,6 @@ class TestClient(TestCase):
         self.assertTrue('tomato_meter' in data)
 
     def test_set_default(self):
-
         req = {'title': 'True Grit'}
 
         data = self.client.get(**req)
@@ -60,3 +62,12 @@ class TestClient(TestCase):
         data = self.client.get(**req)
 
         self.assertEqual(data['year'], '2010')
+
+    def test_timeout(self):
+        with pytest.raises(ConnectTimeout):
+            self.client.get(title='True Grit', timeout=0.0001)
+
+        self.client.set_default('timeout', 0.0001)
+
+        with pytest.raises(ConnectTimeout):
+            self.client.get(title='True Grit')

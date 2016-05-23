@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+- Add support for ``timeout`` parameter to all HTTP requests.
+
+
 v0.5.0 (2015-07-29)
 -------------------
 

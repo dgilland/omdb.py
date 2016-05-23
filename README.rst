@@ -240,6 +240,11 @@ General Import
 	import omdb
 
 
+.. note::
+
+    All functions below support a ``timeout`` keyword argument that will be forwarded to the underlying ``requests.get`` function call. You can also set a global default using ``omdb.set_default('timeout', <timeout>)`` that will be used when ``timeout`` is not explicitly provided.
+
+
 omdb.get()
 ----------
 
@@ -248,6 +253,9 @@ omdb.get()
 
 	# include full plot and Rotten Tomatoes data
 	omdb.get(title='True Grit', year=1969, fullplot=True, tomatoes=True)
+
+	# set timeout of 5 seconds for this request
+	omdb.get(title='True Grit', year=1969, fullplot=True, tomatoes=True, timeout=5)
 
 
 omdb.search()
@@ -258,6 +266,7 @@ omdb.search()
 
 	# search by string
 	omdb.search('True Grit')
+	omdb.search('True Grit', timeout=5)
 
 
 omdb.search_movie()
@@ -268,6 +277,7 @@ omdb.search_movie()
 
 	# search movies by string
 	omdb.search_movie('True Grit')
+	omdb.search_movie('True Grit', timeout=5)
 
 
 omdb.search_episode()
@@ -278,6 +288,7 @@ omdb.search_episode()
 
 	# search episodes by string
 	omdb.search_episode('True Grit')
+	omdb.search_episode('True Grit', timeout=5)
 
 
 omdb.search_series()
@@ -288,6 +299,7 @@ omdb.search_series()
 
 	# search series by string
 	omdb.search_series('True Grit')
+	omdb.search_series('True Grit', timeout=5)
 
 
 omdb.imdbid()
@@ -298,6 +310,7 @@ omdb.imdbid()
 
 	# get by IMDB id
 	omdb.imdbid('tt0065126')
+	omdb.imdbid('tt0065126', timeout=5)
 
 
 omdb.title()
@@ -308,6 +321,7 @@ omdb.title()
 
 	# get by title
 	omdb.title('True Grit')
+	omdb.title('True Grit', timeout=5)
 
 
 omdb.set_default()
@@ -320,6 +334,9 @@ omdb.set_default()
 	omdb.set_default('tomatoes', True)
 	omdb.title('True Grit') == omdb.title('True Grit', tomatoes=True)
 
+	# set a global timeout of 5 seconds for all HTTP requests
+	omdb.set_default('timeout', 5)
+
 
 omdb.request()
 --------------
@@ -328,7 +345,7 @@ omdb.request()
 .. code-block:: python
 
 	# lower level API request
-	omdb.request(t='True Grit', y=1969, plot='full', tomatoes='true')
+	omdb.request(t='True Grit', y=1969, plot='full', tomatoes='true', timeout=5)
 
 
 **Returns:**

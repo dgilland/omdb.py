@@ -1,6 +1,7 @@
 # pylint: skip-file
 """Python 2/3 compatibility"""
 
+from decimal import Decimal
 import sys
 
 
@@ -11,6 +12,7 @@ PY26 = sys.version_info[0:2] == (2, 6)
 if PY3:
     text_type = str
     string_types = (str,)
+    number_types = (int, float, Decimal)
 
     def iterkeys(d): return iter(d.keys())
 
@@ -20,6 +22,7 @@ if PY3:
 else:
     text_type = unicode
     string_types = (str, unicode)
+    number_types = (int, long, float, Decimal)
 
     def iterkeys(d): return d.iterkeys()
 
