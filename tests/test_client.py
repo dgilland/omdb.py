@@ -2,7 +2,7 @@
 from unittest import TestCase
 
 import pytest
-from requests.exceptions import ConnectTimeout
+from requests.exceptions import Timeout
 
 import omdb
 
@@ -64,10 +64,10 @@ class TestClient(TestCase):
         self.assertEqual(data['year'], '2010')
 
     def test_timeout(self):
-        with pytest.raises(ConnectTimeout):
+        with pytest.raises(Timeout):
             self.client.get(title='True Grit', timeout=0.0001)
 
         self.client.set_default('timeout', 0.0001)
 
-        with pytest.raises(ConnectTimeout):
+        with pytest.raises(Timeout):
             self.client.get(title='True Grit')
