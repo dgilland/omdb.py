@@ -96,7 +96,8 @@ class TestApi(TestCase):
             'title',
             'year',
             'type',
-            'imdb_id'
+            'imdb_id',
+            'poster'
         ]
 
         for item in omdb.search('True Grit'):
