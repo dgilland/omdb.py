@@ -137,8 +137,8 @@ Which can be accessed like the following:
 All fields from the ``OMDb API`` are converted from ``CamelCaseFields`` to ``underscore_fields``:
 
 
-Search Item Fields
-~~~~~~~~~~~~~~~~~~
+Search Model Fields
+~~~~~~~~~~~~~~~~~~~
 
 ==============  =============
 OMDb API Field  omdb.py Field
@@ -150,8 +150,8 @@ OMDb API Field  omdb.py Field
 ==============  =============
 
 
-Get Item Fields (tomatoes=False)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get Model Fields (tomatoes=False)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ==============  ===============
 OMDb API Field  omdb.py Field
@@ -182,8 +182,8 @@ OMDb API Field  omdb.py Field
 ==============  ===============
 
 
-Get Item Fields (tomatoes=True)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get Model Fields (tomatoes=True)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 =====================  =======================
 OMDb API Field         omdb.py Field
