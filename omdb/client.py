@@ -17,6 +17,7 @@ class Client(object):
         't': 'title',
         'i': 'imdbid',
         'y': 'year',
+        'page': 'page'
         'Season': 'season',
         'Episode': 'episode',
         'plot': 'plot',
@@ -65,6 +66,7 @@ class Client(object):
             title=None,
             imdbid=None,
             year=None,
+            page=1,
             fullplot=None,
             tomatoes=None,
             media_type=None,
@@ -78,6 +80,7 @@ class Client(object):
             'title': title,
             'imdbid': imdbid,
             'year': year,
+            'page': page,
             'type': media_type,
             'plot': 'full' if fullplot else 'short',
             'tomatoes': 'true' if tomatoes else False,
