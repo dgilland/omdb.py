@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+- Add support for ``page`` parameter to ``search``. Thanks taserian_!
+
+
 v0.6.0 (2016-05-22)
 -------------------
 
@@ -78,3 +81,4 @@ v0.0.1 (2013-11-12)
 
 .. _agronholm: https://github.com/agronholm
 .. _cihansahin: https://github.com/cihansahin
+.. _taserian: https://github.com/taserian
