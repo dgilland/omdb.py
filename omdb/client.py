@@ -17,7 +17,7 @@ class Client(object):
         't': 'title',
         'i': 'imdbid',
         'y': 'year',
-        'page': 'page'
+        'page': 'page',
         'Season': 'season',
         'Episode': 'episode',
         'plot': 'plot',
