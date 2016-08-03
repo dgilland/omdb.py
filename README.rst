@@ -42,6 +42,7 @@ OMDb API Param     omdb.py Param       Value                    Description
 ``i``              ``imdbid``          string **(optional)**    a valid IMDb ID
 ``t``              ``title``           string **(optional)**    title of media to return
 ``y``              ``year``            year **(optional)**      year of media
+``page``           ``page``            page **(optional)**      page to return
 ``Season``         ``season``          season **(optional)**    season number
 ``Episode``        ``episode``         episode **(optional)**   episode number
 ``type``           ``media_type``      string **(optional)**    media type to return (one of ``movie``, ``episode``, or ``series``)
@@ -267,6 +268,7 @@ omdb.search()
 	# search by string
 	omdb.search('True Grit')
 	omdb.search('True Grit', timeout=5)
+	omdb.search('true', page=2)
 
 
 omdb.search_movie()
@@ -278,6 +280,7 @@ omdb.search_movie()
 	# search movies by string
 	omdb.search_movie('True Grit')
 	omdb.search_movie('True Grit', timeout=5)
+	omdb.search_movie('true', page=2)
 
 
 omdb.search_episode()
@@ -289,6 +292,7 @@ omdb.search_episode()
 	# search episodes by string
 	omdb.search_episode('True Grit')
 	omdb.search_episode('True Grit', timeout=5)
+	omdb.search_episode('true', page=2)
 
 
 omdb.search_series()
@@ -300,6 +304,7 @@ omdb.search_series()
 	# search series by string
 	omdb.search_series('True Grit')
 	omdb.search_series('True Grit', timeout=5)
+	omdb.search_series('true', page=2)
 
 
 omdb.imdbid()
