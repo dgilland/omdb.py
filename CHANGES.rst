@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+v0.7.0 (2016-08-03)
+-------------------
+
 - Add support for ``page`` parameter to ``search``. Thanks taserian_!
 
 
