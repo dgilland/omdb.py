@@ -23,7 +23,7 @@ class Client(object):
         'plot': 'plot',
         'type': 'type',
         'tomatoes': 'tomatoes',
-        'apikey' : 'apikey'
+        'apikey': 'apikey'
     }
 
     def __init__(self, **defaults):
