@@ -80,6 +80,7 @@ class Item(Storage):
         'Runtime',
         'Season',
         'seriesID',
+        'totalSeasons',
         'Title',
         'Type',
         'Website',
