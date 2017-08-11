@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-v0.8.0 (2017-08-10)
+v0.8.1 (2017-08-10)
 -------------------
 
 - Add support for OMDb API key via ``omdb.set_default(apikey=API_KEY)`` or ``client = omdb.Client(apikey=API_KEY)``. Thanks oshribr_!
