@@ -68,6 +68,7 @@ class Item(Storage):
         'DVD',
         'Director',
         'Episode',
+        'Episodes',
         'Genre',
         'Language',
         'Metascore',
