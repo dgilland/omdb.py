@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+- Add support for OMDb API key via ``omdb.set_default(apikey=API_KEY)`` or ``client = omdb.Client(apikey=API_KEY)``. Thanks oshribr_!
+- Add ``Epiodes`` OMDb API fields as ``episodes`` model field.
+
+
 v0.7.0 (2016-08-03)
 -------------------
 
@@ -85,3 +89,4 @@ v0.0.1 (2013-11-12)
 .. _agronholm: https://github.com/agronholm
 .. _cihansahin: https://github.com/cihansahin
 .. _taserian: https://github.com/taserian
+.. _oshribr: https://github.com/oshribr

@@ -99,7 +99,7 @@ While generally not necessary, one can use the lower level ``OMDb API Client`` f
 
     from omdb import Client
 
-    client = Client()
+    client = Client(apikey=API_KEY)
 
 =============================  =========================================================================================  =========================
 Class Methods                  Description                                                                                Returns
@@ -166,6 +166,7 @@ OMDb API Field  omdb.py Field
 ``Director``    ``director``
 ``Genre``       ``genre``
 ``Episode``     ``episode``
+``Episodes``    ``episodes``
 ``Season``      ``season``
 ``SeriesID``    ``series_id``
 ``Language``    ``language``
@@ -244,6 +245,19 @@ General Import
 .. note::
 
     All functions below support a ``timeout`` keyword argument that will be forwarded to the underlying ``requests.get`` function call. You can also set a global default using ``omdb.set_default('timeout', <timeout>)`` that will be used when ``timeout`` is not explicitly provided.
+
+API Key
+-------
+
+Usage of the OMDb API currently requires an API key. Set the OMDb API key with ``omdb.set_default`` or when creating a new ``omdb.Client`` instance:
+
+.. code-block:: python
+
+    # if using the module level client
+    omdb.set_default('apikey', API_KEY)
+
+    # if creating a new client instance
+    client = omdb.Client(apikey=API_KEY)
 
 
 omdb.get()
