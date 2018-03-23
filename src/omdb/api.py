@@ -5,10 +5,10 @@ Accessible via:
     import omdb
 """
 
-from .client import Client
+from .client import OMDBClient
 
 # Internal client instance used for our requests.
-_client = Client()
+_client = OMDBClient()
 
 
 def set_default(key, default):

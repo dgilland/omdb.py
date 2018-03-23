@@ -11,7 +11,7 @@ from .__pkg__ import (
 )
 
 from .api import (
-    Client,
+    OMDBClient,
     get,
     imdbid,
     request,

@@ -46,7 +46,8 @@ def test_set_default(client):
     assert data['year'] == '1969'
 
     # can also set defaults at client instantiation time
-    client = omdb.Client(year='1969', apikey=client.default_params['apikey'])
+    client = omdb.OMDBClient(year='1969',
+                             apikey=client.default_params['apikey'])
 
     data = client.get(**req)
 

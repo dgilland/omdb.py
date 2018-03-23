@@ -11,11 +11,9 @@ from ._compat import iteritems, number_types
 RE_CAMELCASE = re.compile('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
 
 
-class Client(object):
+class OMDBClient(object):
     """HTTP request client for OMDb API."""
-
     url = 'http://www.omdbapi.com'
-
     params_map = {
         's': 'search',
         't': 'title',

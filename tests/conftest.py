@@ -41,4 +41,4 @@ def omdb_defaults():
 
 @pytest.fixture
 def client(cache):
-    return omdb.Client(apikey=cache.get('omdbapikey', None))
+    return omdb.OMDBClient(apikey=cache.get('omdbapikey', None))
