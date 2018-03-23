@@ -57,13 +57,3 @@ def test_set_default(client):
     data = client.get(**req)
 
     assert data['year'] == '2010'
-
-
-def test_timeout(client):
-    with pytest.raises(Timeout):
-        client.get(title='True Grit', timeout=0.0001)
-
-    client.set_default('timeout', 0.0001)
-
-    with pytest.raises(Timeout):
-        client.get(title='True Grit')
