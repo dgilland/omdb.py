@@ -16,7 +16,7 @@ def parse_requirements(filename):
             if line.strip()]
 
 pkg = {}
-exec(read('omdb/__pkg__.py'), pkg)
+exec(read('src/omdb/__pkg__.py'), pkg)
 
 readme = read('README.rst')
 changelog = read('CHANGELOG.rst')
@@ -32,7 +32,8 @@ setup(
     author_email=pkg['__email__'],
     description=pkg['__description__'],
     long_description=readme + '\n\n' + changelog,
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     include_package_data=True,
     install_requires=requirements,
     keywords='omdb imdb movies',
