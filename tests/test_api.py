@@ -1,207 +1,238 @@
 
-from unittest import TestCase
+import pytest
 
 import omdb
 
 
-class TestApi(TestCase):
+def test_search():
+    s = 'True Grit'
+    results = omdb.search(s)
 
-    def test_search(self):
-        s = 'True Grit'
-        data = omdb.search(s)
+    assert results[0]['title'] == s
 
-        self.assertEqual(data[0].title, s)
 
-    def test_imdbid(self):
-        i = 'tt0065126'
-        data = omdb.imdbid(i)
+def test_imdbid():
+    i = 'tt0065126'
+    result = omdb.imdbid(i)
 
-        self.assertEqual(data.imdb_id, i)
+    assert result['imdb_id'] == i
 
-    def test_title(self):
-        t = 'True Grit'
-        data = omdb.title(t)
 
-        self.assertEqual(data.title, t)
+def test_title():
+    t = 'True Grit'
+    result = omdb.title(t)
 
-    def test_search_movie(self):
-        t = 'True Grit'
-        media_type = 'movie'
+    assert result['title'] == t
 
-        self.assertEqual(omdb.search_movie(t)[0].type, media_type)
-        self.assertEqual(omdb.get(title=t, media_type=media_type).type,
-                         media_type)
 
-    def test_search_series(self):
-        t = 'True Grit'
-        media_type = 'series'
+def test_search_movie():
+    t = 'True Grit'
+    media_type = 'movie'
 
-        self.assertEqual(omdb.search_series(t)[0].type, media_type)
-        self.assertEqual(omdb.get(title=t, media_type=media_type).type,
-                         media_type)
+    results = omdb.search_movie(t)
+    assert results[0]['type'] == media_type
 
-    def test_search_episode(self):
-        t = 'True Grit'
-        media_type = 'episode'
+    result = omdb.get(title=t, media_type=media_type)
+    assert result['type'] == media_type
 
-        results = omdb.search_episode(t)
 
-        # FIXME: OMDb API is no longer returning results for this query. Have
-        # been unable to find an actual type=episode query that returns
-        # results. Skip test if no results found until a replacement query can
-        # be found.
-        if results:
-            self.assertEqual(results[0].type, media_type)
-            self.assertEqual(omdb.get(title=t, media_type=media_type).type,
-                             media_type)
+def test_search_series():
+    t = 'True Grit'
+    media_type = 'series'
 
-    def test_set_default(self):
-        t = 'True Grit'
+    results = omdb.search_series(t)
+    assert results[0]['type'] == media_type
 
-        self.assertEqual(omdb.title(t).year, '2010')
+    result = omdb.get(title=t, media_type=media_type)
+    assert result['type'] == media_type
 
-        omdb.set_default('year', '1969')
 
-        self.assertEqual(omdb.title(t).year, '1969')
+def test_search_episode():
+    t = 'Pilot'
+    media_type = 'episode'
 
-    def test_get(self):
-        self.assertEqual(omdb.get(title='True Grit').title, 'True Grit')
-        self.assertEqual(omdb.get(imdbid='tt0065126').imdb_id, 'tt0065126')
-        self.assertEqual(omdb.get(search='True Grit')[0].title, 'True Grit')
+    results = omdb.search_episode(t)
 
-    def test_get_season_episode(self):
-        self.assertEqual(
-            omdb.get(title='Game of Thrones', season=1, episode=1).title,
-            'Winter Is Coming')
+    # FIXME: OMDb API is no longer returning results for this query. Have
+    # been unable to find an actual type=episode query that returns
+    # results. Skip test if no results found until a replacement query can
+    # be found.
+    if results:
+        assert results[0]['type'] == media_type
+        assert omdb.get(title=t, media_type=media_type)['type'] == media_type
 
-    def test_request(self):
-        self.assertEqual(omdb.request(t='True Grit').json()['Title'],
-                         'True Grit')
-        self.assertEqual(omdb.request(i='tt0065126').json()['imdbID'],
-                         'tt0065126')
-        self.assertEqual(
-            omdb.request(s='True Grit').json()['Search'][0]['Title'],
-            'True Grit'
-        )
 
-    def test_empty_data(self):
-        invalid = 'asdfghjkl'
+@pytest.mark.usefixtures('omdb_defaults')
+def test_set_default():
+    t = 'True Grit'
 
-        self.assertEqual(omdb.search(invalid), [])
-        self.assertEqual(omdb.title(invalid), {})
-        self.assertEqual(omdb.imdbid(invalid), {})
+    result = omdb.title(t)
+    assert result['year'] == '2010'
 
-    def test_search_model_fields(self):
-        expected_fields = [
-            'title',
-            'year',
-            'type',
-            'imdb_id',
-            'poster'
-        ]
+    omdb.set_default('year', '1969')
 
-        for item in omdb.search('True Grit'):
-            self.assertEqual(set(item.keys()), set(expected_fields))
+    result = omdb.title(t)
+    assert result['year'] == '1969'
 
-    def test_get_model_fields(self):
-        expected_fields = [
-            'actors',
-            'awards',
-            'country',
-            'director',
-            'genre',
-            'language',
-            'metascore',
-            'plot',
-            'poster',
-            'rated',
-            'released',
-            'response',
-            'runtime',
-            'title',
-            'type',
-            'writer',
-            'year',
-            'imdb_id',
-            'imdb_rating',
-            'imdb_votes'
-        ]
 
-        self.assertEqual(set(omdb.title('True Grit').keys()),
-                         set(expected_fields))
-        self.assertEqual(set(omdb.imdbid('tt0065126').keys()),
-                         set(expected_fields))
+def test_get():
+    result = omdb.get(title='True Grit')
+    assert result['title'] == 'True Grit'
 
-    def test_get_model_fields_series(self):
-        expected_fields = [
-            'actors',
-            'awards',
-            'country',
-            'director',
-            'episode',
-            'genre',
-            'language',
-            'metascore',
-            'plot',
-            'poster',
-            'season',
-            'series_id',
-            'rated',
-            'released',
-            'response',
-            'runtime',
-            'title',
-            'type',
-            'writer',
-            'year',
-            'imdb_id',
-            'imdb_rating',
-            'imdb_votes'
-        ]
+    result = omdb.get(imdbid='tt0065126')
+    assert result['imdb_id'] == 'tt0065126'
 
-        self.assertEqual(set(omdb.imdbid('tt2400770').keys()),
-                         set(expected_fields))
+    results = omdb.get(search='True Grit')
+    assert results[0]['title'] == 'True Grit'
 
-    def test_get_model_fields_tomatoes(self):
-        expected_fields = [
-            'actors',
-            'awards',
-            'country',
-            'director',
-            'genre',
-            'language',
-            'metascore',
-            'plot',
-            'poster',
-            'rated',
-            'released',
-            'response',
-            'runtime',
-            'title',
-            'type',
-            'writer',
-            'year',
-            'imdb_id',
-            'imdb_rating',
-            'imdb_votes',
 
-            'box_office',
-            'dvd',
-            'production',
-            'website',
-            'tomato_consensus',
-            'tomato_fresh',
-            'tomato_image',
-            'tomato_meter',
-            'tomato_rating',
-            'tomato_reviews',
-            'tomato_rotten',
-            'tomato_user_meter',
-            'tomato_user_rating',
-            'tomato_user_reviews'
-        ]
+def test_get_season_episode():
+    result = omdb.get(title='Breaking Bad', season=1, episode=1)
+    assert result['title'] == 'Pilot'
 
-        self.assertEqual(set(omdb.title('True Grit', tomatoes=True).keys()),
-                         set(expected_fields))
-        self.assertEqual(set(omdb.imdbid('tt0065126', tomatoes=True).keys()),
-                         set(expected_fields))
+
+def test_request():
+    res = omdb.request(t='True Grit')
+    assert res.json()['Title'] == 'True Grit'
+
+    res = omdb.request(i='tt0065126')
+    assert res.json()['imdbID'] == 'tt0065126'
+
+    res = omdb.request(s='True Grit')
+    assert res.json()['Search'][0]['Title'] == 'True Grit'
+
+
+def test_empty_data():
+    invalid = 'asdfghjkl'
+
+    assert omdb.search(invalid) == []
+    assert omdb.title(invalid) == {}
+    assert omdb.imdbid(invalid) == {}
+
+
+def test_search_model_fields():
+    expected_fields = [
+        'title',
+        'year',
+        'type',
+        'imdb_id',
+        'poster'
+    ]
+
+    for result in omdb.search('True Grit'):
+        assert set(result.keys()) == set(expected_fields)
+
+
+def test_get_fields():
+    expected_fields = [
+        'actors',
+        'awards',
+        'box_office',
+        'country',
+        'director',
+        'dvd',
+        'genre',
+        'language',
+        'metascore',
+        'plot',
+        'poster',
+        'production',
+        'rated',
+        'ratings',
+        'released',
+        'response',
+        'runtime',
+        'title',
+        'type',
+        'website',
+        'writer',
+        'year',
+        'imdb_id',
+        'imdb_rating',
+        'imdb_votes'
+    ]
+
+    result = omdb.title('True Grit')
+    assert set(result.keys()) == set(expected_fields)
+
+    result = omdb.imdbid('tt0065126')
+    assert set(result.keys()) == set(expected_fields)
+
+
+def test_get_series_fields():
+    expected_fields = [
+        'actors',
+        'awards',
+        'country',
+        'director',
+        'episode',
+        'genre',
+        'language',
+        'metascore',
+        'plot',
+        'poster',
+        'season',
+        'series_id',
+        'rated',
+        'ratings',
+        'released',
+        'response',
+        'runtime',
+        'title',
+        'type',
+        'writer',
+        'year',
+        'imdb_id',
+        'imdb_rating',
+        'imdb_votes'
+    ]
+
+    result = omdb.imdbid('tt2400770')
+    assert set(result.keys()) == set(expected_fields)
+
+
+def test_get_tomatoes_fields():
+    expected_fields = [
+        'actors',
+        'awards',
+        'box_office',
+        'country',
+        'director',
+        'dvd',
+        'genre',
+        'language',
+        'metascore',
+        'plot',
+        'poster',
+        'production',
+        'rated',
+        'ratings',
+        'released',
+        'response',
+        'runtime',
+        'title',
+        'type',
+        'website',
+        'writer',
+        'year',
+        'imdb_id',
+        'imdb_rating',
+        'imdb_votes',
+        'tomato_consensus',
+        'tomato_fresh',
+        'tomato_image',
+        'tomato_meter',
+        'tomato_rating',
+        'tomato_reviews',
+        'tomato_rotten',
+        'tomato_url',
+        'tomato_user_meter',
+        'tomato_user_rating',
+        'tomato_user_reviews'
+    ]
+
+    result = omdb.title('True Grit', tomatoes=True)
+    assert set(result.keys()) == set(expected_fields)
+
+    result = omdb.imdbid('tt0065126', tomatoes=True)
+    assert set(result.keys()) == set(expected_fields)

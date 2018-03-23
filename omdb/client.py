@@ -1,14 +1,18 @@
 """OMDb API client.
 """
 
+import re
+
 import requests
 
-from . import models
 from ._compat import iteritems, number_types
 
 
+RE_CAMELCASE = re.compile('((?<=[a-z0-9])[A-Z]|(?!^)[A-Z](?=[a-z]))')
+
+
 class Client(object):
-    """HTTP request client for OMDB API."""
+    """HTTP request client for OMDb API."""
 
     url = 'http://www.omdbapi.com'
 
@@ -34,25 +38,13 @@ class Client(object):
         """Set default request params."""
         self.default_params[key] = default
 
-    def convert_params(self, params):
-        """Map OMDb params to our renaming."""
-        new_params = params.copy()
-
-        for api_arg, arg in iteritems(self.params_map):
-            if arg in params:
-                new_params[api_arg] = new_params.pop(arg)
-
-        return new_params
-
     def request(self, **params):
-        """HTTP GET request to OMDB API.
+        """Lower-level HTTP GET request to OMDb API.
 
         Raises exception for non-200 HTTP status codes.
         """
-        if 'timeout' in params:
-            timeout = params.pop('timeout')
-        else:
-            timeout = self.default_params.get('timeout')
+        timeout = params.pop('timeout', self.default_params.get('timeout'))
+        params.setdefault('apikey', self.default_params.get('apikey'))
 
         res = self.session.get(self.url, params=params, timeout=timeout)
 
@@ -74,8 +66,7 @@ class Client(object):
             season=None,
             episode=None,
             timeout=None):
-        """Generic request returned as dict."""
-
+        """Make OMDb API GET request and return results."""
         params = {
             'search': search,
             'title': title,
@@ -100,18 +91,42 @@ class Client(object):
                 params.setdefault(key, self.default_params[key])
 
         # convert function args to API query params
-        params = self.convert_params(params)
+        params = self.format_params(params)
 
         data = self.request(**params).json()
 
-        return self.set_model(data, params)
+        return self.format_search_results(data, params)
 
-    def set_model(self, data, params):  # pylint: disable=no-self-use
-        """Convert data into first class models."""
+    def format_params(self, params):
+        """Format our custom named params to OMDb API param names."""
+        return {api_param: params[param]
+                for api_param, param in iteritems(self.params_map)
+                if param in params}
+
+    def format_search_results(self, data, params):
+        """Format OMDb API search results into standard format."""
         if 's' in params:
             # omdbapi returns search results even if imdbid supplied
-            data = models.Search(data)
+            return self.format_search_list(data)
         else:
-            data = models.Item(data)
+            return self.format_search_item(data)
 
-        return data
+    def format_search_list(self, data):
+        """Format each search item using :meth:`format_search_item`."""
+        return [self.format_search_item(item)
+                for item in data.get('Search', [])]
+
+    def format_search_item(self, data):
+        """Format search item by converting dict key case from camel case to
+        underscore case.
+        """
+        if 'Error' in data:
+            return {}
+
+        return {camelcase_to_underscore(key): value
+                for key, value in iteritems(data)}
+
+
+def camelcase_to_underscore(string):
+    """Convert string from ``CamelCase`` to ``underscore_case``."""
+    return RE_CAMELCASE.sub(r'_\1', string).lower()
