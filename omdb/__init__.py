@@ -1,14 +1,13 @@
 """OMDb API library.
 """
 
-from .__meta__ import (
-    __title__,
-    __summary__,
+from .__pkg__ import (
+    __description__,
     __url__,
     __version__,
     __author__,
     __email__,
-    __license__,
+    __license__
 )
 
 from .api import (

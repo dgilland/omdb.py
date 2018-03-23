@@ -4,9 +4,11 @@ python:
   - "2.7"
   - "3.4"
   - "3.5"
+  - "3.6"
 install:
-  - make travisci-install
+  - pip install tox-travis
 script:
-  - make travisci-test
+  - tox
 after_success:
+  - pip install coveralls
   - coveralls
