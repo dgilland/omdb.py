@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+- Remove ``omdb.models`` module and return plain dictionaries from search results instead of custom model classes. (**breaking change**)
+
+  - Previously, one could access result items using attributes (e.g. ``result.title``) or indexes (e.g. ``result['title']``). Now, results are ``dict`` objects so must use ``result['title']``.
+
+- Rename ``omdb.Client`` to ``omdb.OMDBClient``. (**breaking change**)
+- Make ``omdb.request|omdb.OMDBClient.request`` use an API key if it's set.
+
+
 v0.8.1 (2017-08-10)
 -------------------
 

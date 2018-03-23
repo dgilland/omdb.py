@@ -23,6 +23,6 @@ API Reference
 
 .. autofunction:: omdb.title
 
-.. autoclass:: omdb.Client
+.. autoclass:: omdb.OMDBClient
     :members:
 

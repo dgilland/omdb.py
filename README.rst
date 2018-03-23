@@ -78,13 +78,13 @@ All methods are accessible via:
 =====================================  =======================================================================================  ==========
 Method                                 Description                                                                              Returns
 =====================================  =======================================================================================  ==========
-``get(**params)``                      Generic request to OMDb API (requires keyword argument passing of all parameters).       ``Item``
-``search(search, **params)``           Search by string.                                                                        ``Search``
-``search_movie(search, **params)``     Search movies by string.                                                                 ``Search``
-``search_episode(search, **params)``   Search episodes by string.                                                               ``Search``
-``search_series(search, **params)``    Search series by string.                                                                 ``Search``
-``imdbid(imdbid, **params)``           Get by IMDB ID                                                                           ``Item``
-``title(title, **params)``             Get by title                                                                             ``Item``
+``get(**params)``                      Generic request to OMDb API (requires keyword argument passing of all parameters).       ``dict``
+``search(search, **params)``           Search by string.                                                                        ``list``
+``search_movie(search, **params)``     Search movies by string.                                                                 ``list``
+``search_episode(search, **params)``   Search episodes by string.                                                               ``list``
+``search_series(search, **params)``    Search series by string.                                                                 ``list``
+``imdbid(imdbid, **params)``           Get by IMDB ID                                                                           ``dict``
+``title(title, **params)``             Get by title                                                                             ``dict``
 ``set_default(key, default)``          Set default request parameter                                                            ``None``
 =====================================  =======================================================================================  ==========
 
@@ -92,50 +92,28 @@ Method                                 Description                              
 Client
 ------
 
-While generally not necessary, one can use the lower level ``OMDb API Client`` for accessing the API:
+Instead of using the ``omdb`` module to access the OMDb API, one can create an ``OMDBClient`` instance:
 
 
 .. code-block:: python
 
-    from omdb import Client
+    from omdb import OMDBClient
 
-    client = Client(apikey=API_KEY)
+    client = OMDBClient(apikey=API_KEY)
 
 =============================  =========================================================================================  =========================
 Class Methods                  Description                                                                                Returns
 =============================  =========================================================================================  =========================
-``get(**omdb_params)``         Generic request to OMDb API which can be used for any type of query.                       ``Search`` or ``GetItem``
+``get(**omdb_params)``         Generic request to OMDb API which can be used for any type of query.                       ``list`` or ``dict``
 ``request(**omdbapi_params)``  Lower-level request to OMDb API which accepts URL query parameters supported by OMDb API.  ``request.Response``
 ``set_default(key, default)``  Set default request parameter.                                                             ``None``
 =============================  =========================================================================================  =========================
 
 
-Models
-------
+API Data
+--------
 
-Movie data returned from the ``OMDb API`` is converted to a custom dict subclass which allows both ``data['key']`` and ``data.key`` access.
-
-There are two main models:
-
-- ``omdb.models.Search`` (a list of ``Item`` instances)
-- ``omdb.models.Item``
-
-Which can be accessed like the following:
-
-
-.. code-block:: python
-
-	import omdb
-
-	movie = omdb.title('True Grit')
-	movie.title == 'True Grit'
-	movie['title'] == 'True Grit'
-
-	search = omdb.search('True Grit')
-	search[0].title == 'True Grit'
-
-
-All fields from the ``OMDb API`` are converted from ``CamelCaseFields`` to ``underscore_fields``:
+API data returned from the ``OMDb API`` is returned as a dictionary with their fields converted from ``CamelCase`` to ``underscore_case``.
 
 
 Search Model Fields
@@ -174,6 +152,7 @@ OMDb API Field  omdb.py Field
 ``Plot``        ``plot``
 ``Poster``      ``poster``
 ``Rated``       ``rated``
+``Ratings``     ``ratings``
 ``Released``    ``released``
 ``Response``    ``response``
 ``Runtime``     ``runtime``
@@ -206,6 +185,7 @@ OMDb API Field         omdb.py Field
 ``Plot``               ``plot``
 ``Poster``             ``poster``
 ``Rated``              ``rated``
+``Ratings``            ``ratings``
 ``Released``           ``released``
 ``Runtime``            ``runtime``
 ``Writer``             ``writer``
@@ -249,7 +229,7 @@ General Import
 API Key
 -------
 
-Usage of the OMDb API currently requires an API key. Set the OMDb API key with ``omdb.set_default`` or when creating a new ``omdb.Client`` instance:
+Usage of the OMDb API currently requires an API key. Set the OMDb API key with ``omdb.set_default`` or when creating a new ``omdb.OMDBClient`` instance:
 
 .. code-block:: python
 
@@ -257,7 +237,7 @@ Usage of the OMDb API currently requires an API key. Set the OMDb API key with `
     omdb.set_default('apikey', API_KEY)
 
     # if creating a new client instance
-    client = omdb.Client(apikey=API_KEY)
+    client = omdb.OMDBClient(apikey=API_KEY)
 
 
 omdb.get()
