@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-v0.9.0 (2018-03-23)
+v0.9.1 (2018-03-24)
 -------------------
 
 - Remove ``omdb.models`` module and return plain dictionaries from search results instead of custom model classes. (**breaking change**)
