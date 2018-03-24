@@ -105,24 +105,28 @@ class OMDBClient(object):
         """Format OMDb API search results into standard format."""
         if 's' in params:
             # omdbapi returns search results even if imdbid supplied
-            return self.format_search_list(data)
+            return self.format_search_list(data.get('Search', []))
         else:
             return self.format_search_item(data)
 
-    def format_search_list(self, data):
+    def format_search_list(self, items):
         """Format each search item using :meth:`format_search_item`."""
-        return [self.format_search_item(item)
-                for item in data.get('Search', [])]
+        return [self.format_search_item(item) for item in items]
 
-    def format_search_item(self, data):
+    def format_search_item(self, item):
         """Format search item by converting dict key case from camel case to
         underscore case.
         """
-        if 'Error' in data:
+        if not isinstance(item, dict):  # pragma: no cover
+            return item
+
+        if 'Error' in item:
             return {}
 
-        return {camelcase_to_underscore(key): value
-                for key, value in iteritems(data)}
+        return {camelcase_to_underscore(key): (self.format_search_list(value)
+                                               if isinstance(value, list)
+                                               else value)
+                for key, value in iteritems(item)}
 
 
 def camelcase_to_underscore(string):
