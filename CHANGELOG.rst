@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+v0.9.0 (2018-03-23)
+-------------------
+
 - Remove ``omdb.models`` module and return plain dictionaries from search results instead of custom model classes. (**breaking change**)
 
   - Previously, one could access result items using attributes (e.g. ``result.title``) or indexes (e.g. ``result['title']``). Now, results are ``dict`` objects so must use ``result['title']``.
