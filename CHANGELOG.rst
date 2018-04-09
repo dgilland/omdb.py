@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+- Add methods to ``OMDBClient`` that mirror module functions:
+
+  - ``search()``
+  - ``search_movie()``
+  - ``search_episode()``
+  - ``search_series()``
+  - ``imdbid()``
+  - ``title()``
+
+
 v0.9.1 (2018-03-24)
 -------------------
 

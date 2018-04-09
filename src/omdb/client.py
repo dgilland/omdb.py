@@ -95,6 +95,33 @@ class OMDBClient(object):
 
         return self.format_search_results(data, params)
 
+    def search(self, string, **params):
+        """Search by string."""
+        return self.get(search=string, **params)
+
+    def search_movie(self, string, **params):
+        """Search movies by string."""
+        params['media_type'] = 'movie'
+        return self.search(string, **params)
+
+    def search_episode(self, string, **params):
+        """Search episodes by string."""
+        params['media_type'] = 'episode'
+        return self.search(string, **params)
+
+    def search_series(self, string, **params):
+        """Search series by string."""
+        params['media_type'] = 'series'
+        return self.search(string, **params)
+
+    def imdbid(self, string, **params):
+        """Get by IMDB ID."""
+        return self.get(imdbid=string, **params)
+
+    def title(self, string, **params):
+        """Get by title."""
+        return self.get(title=string, **params)
+
     def format_params(self, params):
         """Format our custom named params to OMDb API param names."""
         return {api_param: params[param]

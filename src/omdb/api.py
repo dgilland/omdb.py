@@ -25,35 +25,32 @@ def get(**params):
 
 def search(string, **params):
     """Search by string."""
-    return get(search=string, **params)
+    return _client.search(string, **params)
 
 
 def search_movie(string, **params):
     """Search movies by string."""
-    params['media_type'] = 'movie'
-    return search(string, **params)
+    return _client.search_movie(string, **params)
 
 
 def search_episode(string, **params):
     """Search episodes by string."""
-    params['media_type'] = 'episode'
-    return search(string, **params)
+    return _client.search_episode(string, **params)
 
 
 def search_series(string, **params):
     """Search series by string."""
-    params['media_type'] = 'series'
-    return search(string, **params)
+    return _client.search_series(string, **params)
 
 
 def imdbid(string, **params):
     """Get by IMDB ID."""
-    return get(imdbid=string, **params)
+    return _client.imdbid(string, **params)
 
 
 def title(string, **params):
     """Get by title."""
-    return get(title=string, **params)
+    return _client.title(string, **params)
 
 
 def request(**params):
