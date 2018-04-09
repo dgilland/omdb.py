@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+v0.10.0 (2018-04-08)
+--------------------
+
 - Add methods to ``OMDBClient`` that mirror module functions:
 
   - ``search()``
