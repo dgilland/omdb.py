@@ -2,6 +2,9 @@ Changelog
 =========
 
 
+v0.10.1 (2018-12-10)
+--------------------
+
 - Fix mishandling of ``fullplot``, ``tomatoes``, and ``timeout`` parameters in ``OMDBClient.get()`` that did not work correctly in conjuction with ``OMDBClient.set_default()``.
 - Fix mishandling of ``type`` parameter which was not being serialized to API request.
 
