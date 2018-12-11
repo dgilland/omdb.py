@@ -37,7 +37,7 @@ def test_search_movie():
 
 
 def test_search_series():
-    t = 'True Grit'
+    t = 'Game of Thrones'
     media_type = 'series'
 
     results = omdb.search_series(t)
@@ -48,7 +48,7 @@ def test_search_series():
 
 
 def test_search_episode():
-    t = 'Pilot'
+    t = 'A'
     media_type = 'episode'
 
     results = omdb.search_episode(t)

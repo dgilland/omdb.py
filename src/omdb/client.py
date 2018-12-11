@@ -23,7 +23,7 @@ class OMDBClient(object):
         'Season': 'season',
         'Episode': 'episode',
         'plot': 'plot',
-        'type': 'type',
+        'type': 'media_type',
         'tomatoes': 'tomatoes',
         'apikey': 'apikey'
     }
