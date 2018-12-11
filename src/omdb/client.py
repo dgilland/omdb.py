@@ -1,6 +1,7 @@
 """OMDb API client.
 """
 
+import itertools
 import re
 
 import requests
@@ -41,8 +42,11 @@ class OMDBClient(object):
 
         Raises exception for non-200 HTTP status codes.
         """
-        timeout = params.pop('timeout', self.default_params.get('timeout'))
         params.setdefault('apikey', self.default_params.get('apikey'))
+        timeout = params.pop('timeout', None)
+
+        if timeout is None and 'timeout' in self.default_params:
+            timeout = self.default_params['timeout']
 
         res = self.session.get(self.url, params=params, timeout=timeout)
 
@@ -65,33 +69,41 @@ class OMDBClient(object):
             episode=None,
             timeout=None):
         """Make OMDb API GET request and return results."""
+        args = dict(
+            search=search,
+            title=title,
+            imdbid=imdbid,
+            year=year,
+            page=page,
+            fullplot=fullplot,
+            tomatoes=tomatoes,
+            media_type=media_type,
+            season=season,
+            episode=episode,
+        )
+
         params = {
-            'search': search,
-            'title': title,
-            'imdbid': imdbid,
-            'year': year,
-            'page': page,
-            'type': media_type,
-            'plot': 'full' if fullplot else 'short',
-            'tomatoes': 'true' if tomatoes else False,
-            'season': season,
-            'episode': episode,
-            'timeout': timeout
+            key: value for key, value in itertools.chain(
+                iteritems(self.default_params),
+                iteritems(args)
+            )
+            if (
+                key in args and
+                value is not None and
+                (value or isinstance(value, number_types))
+            )
         }
 
-        # remove falsey params
-        params = dict([(key, value) for key, value in iteritems(params)
-                       if value or isinstance(value, number_types)])
+        # handle special cases
+        params['plot'] = 'full' if params.pop('fullplot', None) else 'short'
 
-        # set defaults
-        for key in self.params_map.values():
-            if key in self.default_params:
-                params.setdefault(key, self.default_params[key])
+        if params.get('tomatoes'):
+            params['tomatoes'] = 'true'
 
         # convert function args to API query params
         params = self.format_params(params)
 
-        data = self.request(**params).json()
+        data = self.request(timeout=timeout, **params).json()
 
         return self.format_search_results(data, params)
 
